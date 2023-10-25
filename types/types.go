@@ -11,7 +11,14 @@ type Chapter struct {
 	Images []string
 }
 
-type MediaFolder struct {
+type PictureFolder struct {
 	Name string
 	Files []string
+}
+
+type Video struct {
+	Name     string
+	Url      string
+	Category string
+	// Thumbnail string
 }

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	. "go-server/types"
+	"log"
 	"net/http"
 	"os"
 )
@@ -12,7 +13,7 @@ import (
 func GetComics(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	fmt.Println("All Comics Endpoint Hit")
+	log.Printf("GET /api/comics")
 	entries, err := os.ReadDir("./public/comics")
     if err != nil {
         fmt.Fprintln(w,err)

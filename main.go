@@ -1,24 +1,37 @@
 package main
 
 import (
-	"fmt"
+	"flag"
 	. "go-server/api"
+	"log"
 	"net/http"
 )
 
 func main() {
-	fs := http.FileServer(http.Dir("public"))
+	addr := flag.String("addr", ":4000", "HTTPS network address")
+  	// certFile := flag.String("certfile", "cert.pem", "certificate PEM file")
+  	// keyFile := flag.String("keyfile", "key.pem", "key PEM file")
+	flag.Parse()
+	
+	mux := http.NewServeMux()
+
 	var routes = map[string]http.Handler{
-		"/": fs,
+		"/": http.FileServer(http.Dir("public")),
 		"/api/comics": http.HandlerFunc(GetComics),
 		"/api/videos": http.HandlerFunc(GetVideos),
 		"/api/pictures": http.HandlerFunc(GetPictures),
 	};
 
 	for path, handler := range routes {
-		http.Handle(path, handler)
+		mux.Handle(path, handler)
 	}
 
-	fmt.Println("Listening on :3000...")
-	http.ListenAndServe(":3000", nil)
+	srv := &http.Server{
+		Addr:    *addr,
+		Handler: mux,
+	}
+
+	log.Printf("Starting server on %s", *addr)
+	err := srv.ListenAndServe()
+	log.Fatal(err)
 }
