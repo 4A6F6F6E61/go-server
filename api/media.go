@@ -20,7 +20,7 @@ func GetVideos(w http.ResponseWriter, r *http.Request) {
     }
 	var retVideos []Video
 	for _, cat := range entries {
-		if cat.IsDir() == false {
+		if !cat.IsDir() {
 			continue
 		}
 		videos, err := os.ReadDir(fmt.Sprintf("./public/videos/%s", cat.Name()))

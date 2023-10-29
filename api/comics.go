@@ -50,7 +50,7 @@ func GetComics(w http.ResponseWriter, r *http.Request) {
 		}
 		comics = append(comics, Comic{
 			Name: entry.Name(),
-			Cover: fmt.Sprintf("/comics/%s/cover.jpg", entry.Name()),
+			Cover: fmt.Sprintf("/comics/%s/cover.webp", entry.Name()),
 			Chapters: chapters,
 		})
 	}
