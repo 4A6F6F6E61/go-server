@@ -8,6 +8,8 @@ import (
 )
 
 func main() {
+  // TODO: Use a PostgreSQL database instead of folders to store information
+
 	addr := flag.String("addr", ":4000", "HTTPS network address")
   	// certFile := flag.String("certfile", "cert.pem", "certificate PEM file")
   	// keyFile := flag.String("keyfile", "key.pem", "key PEM file")
@@ -32,6 +34,7 @@ func main() {
 	}
 
 	log.Printf("Starting server on %s", *addr)
-	err := srv.ListenAndServe()
+	
+  err := srv.ListenAndServe()
 	log.Fatal(err)
 }
